@@ -1,5 +1,6 @@
 import Navbar from "@/components/navbar";
 import Banner from "@/components/banner";
+import FeaturedDestinations from "@/components/featured-destinations";
 import WhyChooseUs from "@/components/why-choose-us";
 import Testimonials from "@/components/testimonials";
 import Cta from "@/components/cta";
@@ -10,6 +11,7 @@ const HomePage = () => {
     <div>
 
       <Banner />
+      <FeaturedDestinations />
       <WhyChooseUs />
       <Testimonials />
       <Cta />

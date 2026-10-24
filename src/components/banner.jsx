@@ -1,4 +1,5 @@
 import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 const searchFields = [
   { label: "Location", placeholder: "Address, City Or Zip" },
@@ -35,9 +36,11 @@ export default function Banner() {
             Explore Now
             <ArrowRight className="size-4" />
           </button>
-          <button className="bg-white/25 px-6 py-3 text-xs font-semibold uppercase tracking-wider text-white backdrop-blur-sm hover:bg-white/35">
-            View Destination
-          </button>
+          <Link href='/destinations'>
+            <button className="bg-white/25 px-6 py-3 text-xs font-semibold uppercase tracking-wider text-white backdrop-blur-sm hover:bg-white/35">
+              View Destination
+            </button>
+          </Link>
         </div>
       </div>
 

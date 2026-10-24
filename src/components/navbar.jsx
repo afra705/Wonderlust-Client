@@ -1,7 +1,8 @@
 import { User } from "lucide-react";
+import Link from "next/link";
 
 const navLinks = [
-  { label: "Home", href: "#", active: true },
+  { label: "Home", href: "/", active: true },
   { label: "Add Destinations", href: "/add-destination" },
   { label: "Destinations", href: "/destinations" },
   { label: "My Bookings", href: "#" },
@@ -28,7 +29,7 @@ export default function Navbar() {
       </nav>
 
       <a
-        href="#"
+        href=""
         className="absolute left-1/2 hidden -translate-x-1/2 font-serif text-xl font-bold text-[#00bcd4] sm:block"
       >
         Wanderlast

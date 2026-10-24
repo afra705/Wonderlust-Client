@@ -10,6 +10,8 @@ import {
   Trash2,
   ArrowRight,
 } from "lucide-react";
+import { EditDestination } from "@/components/EditDestination";
+import DeleteDestination from "@/components/DeleteDestination";
 
 const highlightsByCategory = {
   Beach: [
@@ -113,20 +115,10 @@ const DestinationDetailsPage = async ({ params }) => {
         </Link>
 
         <div className="flex items-center gap-3">
-          <button
-            type="button"
-            className="inline-flex h-9 items-center gap-1.5 rounded-md border border-gray-300 bg-white px-4 text-sm font-medium text-gray-800 transition-colors hover:bg-gray-50"
-          >
-            <Pencil className="size-4" />
-            Edit
-          </button>
-          <button
-            type="button"
-            className="inline-flex h-9 items-center gap-1.5 rounded-md border border-red-200 bg-white px-4 text-sm font-medium text-red-500 transition-colors hover:bg-red-50 hover:text-red-600"
-          >
-            <Trash2 className="size-4" />
-            Cancel
-          </button>
+       
+          <EditDestination destination={destination} key={destination._id}/>
+          <DeleteDestination id={id}/>
+         
         </div>
       </div>
 
@@ -145,7 +137,9 @@ const DestinationDetailsPage = async ({ params }) => {
             {destination.country ?? "Unknown"}
           </div>
 
-          <h1 className="mt-2 font-serif text-4xl text-gray-950">{destination.name}</h1>
+          <h1 className="mt-2 font-serif text-4xl text-gray-950">
+            {destination.name}
+          </h1>
 
           <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-gray-600">
             <span className="flex items-center gap-1">
@@ -161,15 +155,22 @@ const DestinationDetailsPage = async ({ params }) => {
 
           <div className="mt-6">
             <h2 className="text-lg font-semibold text-gray-900">Overview</h2>
-            <p className="mt-2 text-sm leading-6 text-gray-600">{destination.description}</p>
+            <p className="mt-2 text-sm leading-6 text-gray-600">
+              {destination.description}
+            </p>
           </div>
 
           <div className="mt-6">
             <h2 className="text-lg font-semibold text-gray-900">Highlights</h2>
-            <p className="mt-2 text-sm leading-6 text-gray-600">{destination.description}</p>
+            <p className="mt-2 text-sm leading-6 text-gray-600">
+              {destination.description}
+            </p>
             <ul className="mt-4 grid gap-x-8 gap-y-2.5 sm:grid-cols-2">
               {highlights.map((highlight) => (
-                <li key={highlight} className="flex items-start gap-2 text-sm text-gray-700">
+                <li
+                  key={highlight}
+                  className="flex items-start gap-2 text-sm text-gray-700"
+                >
                   <Check className="mt-0.5 size-4 shrink-0 text-green-600" />
                   {highlight}
                 </li>
@@ -203,7 +204,10 @@ const DestinationDetailsPage = async ({ params }) => {
 
             <ul className="mt-4 space-y-2">
               {perks.map((perk) => (
-                <li key={perk} className="flex items-start gap-2 text-xs text-gray-600">
+                <li
+                  key={perk}
+                  className="flex items-start gap-2 text-xs text-gray-600"
+                >
                   <Check className="mt-0.5 size-3.5 shrink-0 text-green-600" />
                   {perk}
                 </li>

@@ -10,6 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import Link from "next/link";
 
 const categories = [
   "Beach",
@@ -50,8 +51,25 @@ export default function AllDestinationPage() {
       try {
         const res = await fetch("http://localhost:5000/destinations");
         if (!res.ok) throw new Error(`Request failed with status ${res.status}`);
-        const data = await res.json();
-        setDestinations(Array.isArray(data) ? data : []);
+      const data = await res.json();
+
+if (Array.isArray(data)) {
+  const uniqueDestinations = data.filter(
+    (destination, index, array) => {
+      if (!destination._id) return true;
+
+      return (
+        array.findIndex(
+          (item) => item._id === destination._id
+        ) === index
+      );
+    }
+  );
+
+  setDestinations(uniqueDestinations);
+} else {
+  setDestinations([]);
+}
       } catch (err) {
         setError("Failed to load destinations. Please make sure the API server is running.");
       } finally {
@@ -96,7 +114,8 @@ export default function AllDestinationPage() {
   }, [destinations, category, priceRange, sortBy]);
 
   return (
-    <main className="mx-auto w-full max-w-6xl px-6 py-10 lg:px-12">
+
+       <main className="mx-auto w-full max-w-6xl px-6 py-10 lg:px-12">
       <h1 className="font-serif text-4xl text-gray-950">Explore All Destinations</h1>
       <p className="mt-2 text-sm text-gray-500">
         Find your perfect travel experience from our curated collection
@@ -159,13 +178,22 @@ export default function AllDestinationPage() {
         {visibleDestinations.map((destination) => (
           <article key={destination._id ?? destination.name} className="group">
             <div className="relative overflow-hidden rounded-sm">
-              <img
-                src={destination.imageUrl}
-                alt={destination.name}
-                className="aspect-[4/3] w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                loading="lazy"
-              />
-              <span className="absolute top-2.5 right-2.5 flex items-center gap-1 rounded-full bg-gray-900/70 px-2 py-0.5 text-xs font-medium text-white backdrop-blur-sm">
+     {destination.imageUrl ? (
+    <div className="overflow-hidden rounded-md">
+  <img
+    src={destination.imageUrl || undefined}
+    alt={destination.name || "Destination"}
+    className="h-[250px] w-full object-cover
+      transition-transform duration-700 ease-in-out
+      hover:scale-110"
+  />
+</div>
+        ) : (
+          <div className="flex aspect-[21/9] w-full items-center justify-center bg-gray-100 text-sm text-gray-400">
+            No image available
+          </div>
+        )}
+                      <span className="absolute top-2.5 right-2.5 flex items-center gap-1 rounded-full bg-gray-900/70 px-2 py-0.5 text-xs font-medium text-white backdrop-blur-sm">
                 4.5
                 <Star className="size-3 fill-amber-400 text-amber-400" />
               </span>
@@ -190,6 +218,7 @@ export default function AllDestinationPage() {
                 {destination.duration}
               </div>
 
+             <Link href={`/destinations/${destination._id}`}>
               <button
                 type="button"
                 className="mt-1 inline-flex items-center gap-1 text-xs font-semibold tracking-widest text-cyan-600 uppercase transition-colors hover:text-cyan-700"
@@ -197,6 +226,7 @@ export default function AllDestinationPage() {
                 Book Now
                 <ArrowUpRight className="size-3.5" />
               </button>
+             </Link>
             </div>
           </article>
         ))}

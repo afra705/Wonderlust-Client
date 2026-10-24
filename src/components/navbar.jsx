@@ -40,12 +40,12 @@ export default function Navbar() {
           <User className="size-4" />
           Profile
         </a>
-        <a href="#" className="hover:text-[#00bcd4]">
+        <Link href="/login" className="hover:text-[#00bcd4]">
           Login
-        </a>
-        <a href="#" className="hover:text-[#00bcd4]">
+        </Link>
+        <Link href="/signup" className="hover:text-[#00bcd4]">
           Sign Up
-        </a>
+        </Link>
       </nav>
     </header>
   );

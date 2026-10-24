@@ -14,11 +14,11 @@ export default function Banner() {
       <div
         aria-hidden="true"
         className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: "url('/hero.jpg')" }}
+        style={{ backgroundImage: "url('/images/Banner.png')" }}
       />
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/25 to-black/45"
+        className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/10 to-black/25"
       />
 
       {/* Hero content */}

@@ -2,9 +2,10 @@ import { User } from "lucide-react";
 
 const navLinks = [
   { label: "Home", href: "#", active: true },
-  { label: "Destinations", href: "#" },
+  { label: "Add Destinations", href: "/add-destination" },
+  { label: "Destinations", href: "/destinations" },
   { label: "My Bookings", href: "#" },
-  { label: "Admin", href: "#" },
+
 ];
 
 export default function Navbar() {

@@ -1,5 +1,5 @@
 "use client";
-
+import { authClient } from "@/lib/auth-client";
 import { useState } from "react";
 import Link from "next/link";
 import {
@@ -30,11 +30,12 @@ export default function SignupForm() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [error, setError] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
     setError("");
 
     const formData = new FormData(e.currentTarget);
+    const user = Object.fromEntries(formData.entries())
     const password = formData.get("password");
     const confirmPassword = formData.get("confirmPassword");
 
@@ -47,14 +48,17 @@ export default function SignupForm() {
       setError("Password must be at least 8 characters long.");
       return;
     }
-
-    const data = {
-      name: formData.get("name"),
-      email: formData.get("email"),
-      password,
-    };
-
-    console.log("Signup data:", data);
+    const { data, error } = await authClient.signUp.email({
+      ...user,
+    });
+   if(data){
+    console.log(data);
+   }
+   if(error){
+    console.log(error);
+    
+   }
+    // console.log("Signup data:", data);
 
     // TODO: Connect your registration API here.
   };
@@ -74,7 +78,7 @@ export default function SignupForm() {
           >
             <Compass className="size-8" />
           </Link>
-
+  
           <div>
             <CardTitle className="font-serif text-3xl font-bold tracking-tight text-slate-900">
               Start Your Journey
@@ -253,13 +257,11 @@ export default function SignupForm() {
 
           {/* Google signup UI */}
           <Button
+           onSubmit={handleSubmit}
             type="button"
             variant="outline"
             className="h-11 w-full border-slate-200 font-medium text-slate-700 hover:bg-slate-50"
-            onClick={() => {
-              // TODO: Connect Google OAuth.
-              console.log("Google signup clicked");
-            }}
+    
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

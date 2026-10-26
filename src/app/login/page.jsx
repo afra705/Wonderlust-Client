@@ -23,6 +23,15 @@ const LoginForm = () => {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
 
+ const handleSignIn = async () => {
+  await authClient.signIn.social({
+    provider: "google",
+    callbackURL: "/",
+  });
+
+}
+
+
   const handleSubmit = async(e) => {
     e.preventDefault();
 
@@ -167,13 +176,11 @@ const LoginForm = () => {
 
           {/* Google login UI */}
           <Button
+            
             type="button"
             variant="outline"
             className="h-11 w-full border-slate-200 font-medium text-slate-700 hover:bg-slate-50"
-            onClick={() => {
-              // TODO: Add Google authentication.
-              console.log("Google login clicked");
-            }}
+            onClick={handleSignIn}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

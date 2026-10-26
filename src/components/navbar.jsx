@@ -17,7 +17,7 @@ const navLinks = [
   { label: "Home", href: "/", active: true },
   { label: "Add Destinations", href: "/add-destination" },
   { label: "Destinations", href: "/destinations" },
-  { label: "My Bookings", href: "#" },
+  { label: "My Bookings", href: "/my-bookings" },
 ];
 
 export default function Navbar() {
@@ -43,7 +43,7 @@ const user = session?.user;
     <header className="relative z-20 flex h-12 items-center justify-between border-b border-gray-200 bg-white px-4">
       <nav className="flex items-center gap-4 text-sm sm:gap-6">
         {navLinks.map((link) => (
-          <a
+          <Link
             key={link.label}
             href={link.href}
             className={
@@ -53,7 +53,7 @@ const user = session?.user;
             }
           >
             {link.label}
-          </a>
+          </Link>
         ))}
       </nav>
 

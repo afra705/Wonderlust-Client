@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 const Cta = () => {
@@ -21,10 +22,13 @@ const Cta = () => {
         <p className="mt-3 text-sm text-white/90">
           Join thousands of travelers who have discovered the world with us
         </p>
-        <button className="mx-auto mt-7 flex items-center gap-3 bg-white px-6 py-3 text-xs font-semibold uppercase tracking-wider text-gray-900 hover:bg-gray-100">
+        <Link
+          href="/destinations"
+          className="mx-auto mt-7 flex w-fit items-center gap-3 bg-white px-6 py-3 text-xs font-semibold uppercase tracking-wider text-gray-900 transition-colors hover:bg-gray-100"
+        >
           Book Your Trip Today
           <ArrowRight className="size-4" />
-        </button>
+        </Link>
       </div>
     </section>
   );

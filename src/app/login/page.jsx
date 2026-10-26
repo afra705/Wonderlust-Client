@@ -1,5 +1,5 @@
 "use client";
-
+import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
 import { useState } from "react";
 import { Eye, EyeOff, Mail, Lock, Compass } from "lucide-react";
@@ -23,11 +23,21 @@ const LoginForm = () => {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
-    const data = Object.fromEntries(formData.entries());
+    const user = Object.fromEntries(formData.entries());
+      const { data, error } = await authClient.signIn.email({
+          ...user,
+        });
+       if(data){
+        console.log(data);
+       }
+       if(error){
+        console.log(error);
+        
+       }
     if(data){
          router.push('/')
     }
@@ -141,6 +151,7 @@ const LoginForm = () => {
 
             {/* Submit */}
             <Button
+            onSubmit={handleSubmit}
               type="submit"
               className="h-11 w-full bg-cyan-500 font-semibold text-white shadow-md shadow-cyan-500/20 transition hover:bg-cyan-600"
             >

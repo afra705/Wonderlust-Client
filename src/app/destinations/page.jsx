@@ -49,7 +49,11 @@ export default function AllDestinationPage() {
   useEffect(() => {
     const fetchDestinations = async () => {
       try {
-        const res = await fetch("http://localhost:5000/destinations");
+        const res = await fetch(`http://localhost:5000/destinations`,{
+          headers:{
+            authorization: 'user logged in',
+          }
+        });
         if (!res.ok) throw new Error(`Request failed with status ${res.status}`);
       const data = await res.json();
 

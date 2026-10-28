@@ -12,6 +12,8 @@ import { EditDestination } from "@/components/EditDestination";
 import DeleteDestination from "@/components/DeleteDestination";
 import BookingCard from '@/app/booking/bookingCard'
 
+import { getTokenFromServer } from "@/lib/getTokenFromServer";
+
 const highlightsByCategory = {
   Beach: [
     "Beachfront accommodation",
@@ -71,8 +73,14 @@ const DestinationDetailsPage = async ({ params }) => {
   const { id } = await params;
 
   let destination = null;
+  
+const token = await getTokenFromServer()
   try {
-    const res = await fetch(`http://localhost:5000/destinations/${id}`);
+    const res = await fetch(`http://localhost:5000/destinations/${id}`,{
+       headers:{
+            authorization: `Bearer ${token}`
+          }
+    });
     if (res.ok) {
       destination = await res.json();
     }

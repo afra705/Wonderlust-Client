@@ -16,6 +16,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { toast } from "sonner";
+import { authClient } from "@/lib/auth-client";
+import { getTokenFromServer } from "@/lib/getTokenFromClient";
+
 
 const categories = ["Beach", "Mountain", "Historical", "City Tour", "Adventure", "Luxury"];
 
@@ -48,16 +51,21 @@ export default function AddDestinationPage() {
   };
 
   const handleSubmit = async(event) => {
+   
+    const token = await getTokenFromServer()
+     
+     
     event.preventDefault();
     const res = await fetch('http://localhost:5000/destination',{
         method:'POST',
         headers:{
             'Content-Type': 'application/json',
+            authorization: `Bearer ${token}`
         },
         body:JSON.stringify(form)
     })
-    const data =await res.json()
-    console.log(data);
+    const result =await res.json()
+    console.log(result);
     
    toast.success("Destination added successfully.");
 

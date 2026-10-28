@@ -32,28 +32,38 @@ const LoginForm = () => {
 }
 
 
-  const handleSubmit = async(e) => {
-    e.preventDefault();
 
-    const formData = new FormData(e.currentTarget);
-    const user = Object.fromEntries(formData.entries());
-      const { data, error } = await authClient.signIn.email({
-          ...user,
-        });
-       if(data){
-        console.log(data);
-       }
-       if(error){
-        console.log(error);
-        
-       }
-    if(data){
-         router.push('/')
-    }
-    console.log("Login data:", data);
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    // TODO: Connect your authentication API here.
-  };
+  const formData = new FormData(e.currentTarget);
+  const user = Object.fromEntries(formData.entries());
+
+  const { data, error } = await authClient.signIn.email({
+    email: user.email,
+    password: user.password,
+  });
+
+  if (error) {
+    console.log("Login error:", error);
+    return;
+  }
+
+  console.log("Login successful:", data);
+
+  // Get JWT token
+  const { data: tokenData, error: tokenError } =
+    await authClient.token();
+
+  if (tokenError) {
+    console.log("Token error:", tokenError);
+    return;
+  }
+
+  console.log("JWT Token:", tokenData.token);
+
+  router.push("/");
+};
 
   return (
     <div className="relative flex min-h-[calc(100vh-3rem)] items-center justify-center overflow-hidden bg-slate-50 px-4 py-12">
